@@ -3,8 +3,8 @@ import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 
 import store from "store";
+import GlobalStyles from "GlobalStyles";
 import App from "./App";
-import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
@@ -13,6 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <GlobalStyles />
       <App />
     </Provider>
   </React.StrictMode>,

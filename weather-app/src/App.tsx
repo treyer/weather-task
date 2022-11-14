@@ -1,31 +1,12 @@
 import React from "react";
 
-import Test from "components/Test";
-
-import logo from "./logo.svg";
-import "./App.css";
+import MainLayout from "layouts/MainLayout/MainLayout";
+import { UNSPLASH_URL, UNSPLASH_URL_OPTIONS } from "constants/common";
 
 function App() {
-  return (
-    <div className="App">
-      <Test />
+  const url = `${UNSPLASH_URL}'city, rain'${UNSPLASH_URL_OPTIONS}`;
 
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <MainLayout bgUrl={url} />;
 }
 
 export default App;
