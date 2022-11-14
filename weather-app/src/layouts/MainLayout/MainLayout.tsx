@@ -1,3 +1,6 @@
+import CalendarBlock from "components/CalendarBlock/CalendarBlock";
+import InfoBlock from "components/InfoBlock/InfoBlock";
+import WeatherBlock from "components/WeatherBlock/WeatherBlock";
 import { useEffect, useState } from "react";
 import { Background, Content, Wrapper } from "./components";
 
@@ -9,7 +12,7 @@ function MainLayout({ bgUrl }: Props) {
   const [bgImgSrc, setBgImgSrc] = useState("");
 
   useEffect(() => {
-    async function fetchImage() {
+    const fetchImage = async () => {
       const img = new Image();
       const request = await fetch(bgUrl);
       const photo = await request.json();
@@ -17,15 +20,18 @@ function MainLayout({ bgUrl }: Props) {
       img.onload = () => {
         setBgImgSrc(`url(${img.src})`);
       };
-    }
-
+    };
     fetchImage();
   }, [bgUrl]);
 
   return (
     <Wrapper>
       <Background imgSrc={bgImgSrc} />
-      <Content imgSrc={bgImgSrc} />
+      <Content imgSrc={bgImgSrc}>
+        <InfoBlock />
+        <CalendarBlock />
+        <WeatherBlock />
+      </Content>
     </Wrapper>
   );
 }
