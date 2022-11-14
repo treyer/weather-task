@@ -26,6 +26,8 @@
     "react/react-in-jsx-scope": ["off"],
     "react/jsx-uses-react": ["off"],
     "react/jsx-props-no-spreading": ["warn"],
-    "react/no-unescaped-entities": ["off"]
+    "react/no-unescaped-entities": ["off"],
+    "default-param-last": "off",
+    "@typescript-eslint/default-param-last": "off"
   }
 }

@@ -1,23 +1,15 @@
-import { applyMiddleware, compose, createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 
+import rootSaga from "sagas/rootSagaWatcher";
 import rootReducer from "./reducers/rootReducer";
-import rootSagaWatcher from "../sagas/rootSagaWatcher";
-
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();
-
+const composeEnhancers =
+  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
-
 const store = createStore(rootReducer, enhancer);
 
-sagaMiddleware.run(rootSagaWatcher);
+sagaMiddleware.run(rootSaga);
 
 export default store;
