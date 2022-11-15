@@ -13,6 +13,7 @@ function Timer({ timeZone }: Props) {
   const [timeInDigits, dayTime] = time
     .toLocaleTimeString(EN_US_LOCALE, {
       timeZone,
+      hour12: true,
     })
     .split(" ");
 

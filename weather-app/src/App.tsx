@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import MainLayout from "layouts/MainLayout/MainLayout";
-import { UNSPLASH_URL, UNSPLASH_URL_OPTIONS } from "constants/common";
+import { FETCH_GEO } from "store/reducers/constants";
 
 function App() {
-  const url = `${UNSPLASH_URL}'city, rain'${UNSPLASH_URL_OPTIONS}`;
+  const dispatch = useDispatch();
 
-  return <MainLayout bgUrl={url} />;
+  useEffect(() => {
+    dispatch({ type: FETCH_GEO });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return <MainLayout />;
 }
 
 export default App;
