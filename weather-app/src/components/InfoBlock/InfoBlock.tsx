@@ -1,11 +1,11 @@
 import City from "components/City/City";
-import Clock from "components/Clock/Clock";
+import ClockWidget from "components/ClockWidget/ClockWidget";
 import Wrapper from "./components";
 
 function InfoBlock() {
   return (
     <Wrapper>
-      <Clock />
+      <ClockWidget />
       <City />
     </Wrapper>
   );

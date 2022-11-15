@@ -21,6 +21,7 @@ export const Background = styled.div<Prop>`
 
   transition: background-image 1s ease-in-out;
   filter: sepia(60%);
+  filter: blur(3px);
 `;
 
 export const Content = styled.main<Prop>`
