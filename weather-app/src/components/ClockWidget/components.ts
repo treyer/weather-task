@@ -7,6 +7,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: end;
 
+  padding-left: 50px;
+
   color: ${COLOR_WHITE};
 `;
 
@@ -24,7 +26,7 @@ export const DateWrapper = styled.div`
 `;
 
 export const DayTime = styled.span`
-  margin-left: 10px;
+  margin-left: 5px;
 
   font-size: 30px;
 `;
