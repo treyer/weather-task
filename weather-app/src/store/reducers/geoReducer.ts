@@ -1,7 +1,13 @@
-import { SET_GEO } from "./constants";
-import { GeoAction, GeoState } from "./types";
+import { SET_GEO } from "../constants";
+import { GeoAction, GeoState } from "../types";
 
-const initialValue: GeoState = { city: "", countryName: "", timeZone: "UTC" };
+const initialValue: GeoState = {
+  city: "",
+  countryName: "",
+  timeZone: "UTC",
+  latitude: null,
+  longitude: null,
+};
 
 const geoReducer = (
   state: GeoState = initialValue,

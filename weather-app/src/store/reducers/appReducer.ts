@@ -1,5 +1,5 @@
-import { HIDE_LOADER, SHOW_LOADER } from "./constants";
-import { AppAction, AppState } from "./types";
+import { HIDE_LOADER, SHOW_LOADER } from "../constants";
+import { AppAction, AppState } from "../types";
 
 const initialValue: AppState = { loading: false };
 

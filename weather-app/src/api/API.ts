@@ -1,11 +1,16 @@
 import axios from "axios";
 // import { setupCache } from "axios-cache-adapter";
 import {
-  IP_WHO_URL,
-  UNSPLASH_URL,
-  UNSPLASH_URL_OPTIONS,
-} from "constants/common";
-import GetGeoResponse from "./types";
+  OPENWEATHERMAP_KEY,
+  UNSPLASH_CLIENT_ID,
+  WEATHERBIT_KEY,
+} from "constants/credentials";
+import {
+  GetGeoResponse,
+  OpenweathermapResponse,
+  FetchForecastReturn,
+  WeatherbitResponse,
+} from "./types";
 
 // const MAX_AGE = 15 * 60 * 1000;
 
@@ -19,17 +24,79 @@ import GetGeoResponse from "./types";
 
 export const fetchImageSrc = async (keywords: string): Promise<string> => {
   const photoUrl = await axios
-    .get(`${UNSPLASH_URL}${keywords}${UNSPLASH_URL_OPTIONS}`)
+    .get("https://api.unsplash.com/photos/random?", {
+      params: {
+        query: keywords,
+        orientation: "landscape",
+        client_id: UNSPLASH_CLIENT_ID,
+      },
+    })
     .then((res) => res.data)
     .then((photo) => photo.urls.regular);
   return photoUrl;
 };
 
 export const fetchGeo = async (): Promise<GetGeoResponse> => {
-  const geo = await axios.get(`${IP_WHO_URL}`).then((res) => res.data);
+  const geo = await axios.get("http://ipwho.is/").then((res) => res.data);
   return {
     city: geo.city,
     countryName: geo.country,
     timeZone: geo.timezone.id,
+    latitude: geo.latitude,
+    longitude: geo.longitude,
   };
+};
+
+export const fetchOpenweathermapForecast = async (
+  latitude: number,
+  longitude: number,
+): Promise<FetchForecastReturn> => {
+  const weatherList: OpenweathermapResponse = await axios
+    .get("https://api.openweathermap.org/data/2.5/forecast?", {
+      params: {
+        lat: latitude,
+        lon: longitude,
+        appid: OPENWEATHERMAP_KEY,
+        units: "metric",
+      },
+    })
+    .then((res) => res.data);
+  const result = weatherList.list.map((el) => ({
+    temperature: el.main.temp,
+    weatherCode: el.weather[0].id,
+    dateInText: el.dt_txt,
+  }));
+  return result;
+};
+
+export const fetchWeatherbitForecast = async (
+  type: "hourly" | "daily",
+  latitude: number,
+  longitude: number,
+): Promise<FetchForecastReturn> => {
+  const weatherList: WeatherbitResponse = await axios
+    .get(`https://api.weatherbit.io/v2.0/forecast/${type}?`, {
+      params: {
+        lat: latitude,
+        lon: longitude,
+        key: WEATHERBIT_KEY,
+      },
+    })
+    .then((res) => res.data);
+  const result = weatherList.data.map((el) => {
+    if (type === "hourly") {
+      return {
+        temperature: el.temp,
+        weatherCode: el.weather.code,
+        dateInText: el.timestamp_local,
+      };
+    }
+    return {
+      minTemperature: el.min_temp,
+      maxTemperature: el.max_temp,
+      weatherCode: el.weather.code,
+      dateInText: el.timestamp_local,
+    };
+  });
+  return result;
 };

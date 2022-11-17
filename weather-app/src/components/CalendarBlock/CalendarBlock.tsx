@@ -1,5 +1,7 @@
+import Wrapper from "./components";
+
 function CalendarBlock() {
-  return <div />;
+  return <Wrapper />;
 }
 
 export default CalendarBlock;

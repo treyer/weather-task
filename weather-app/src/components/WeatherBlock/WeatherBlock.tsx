@@ -1,5 +1,7 @@
+import Wrapper from "./components";
+
 function WeatherBlock() {
-  return <div />;
+  return <Wrapper />;
 }
 
 export default WeatherBlock;
