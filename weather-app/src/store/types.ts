@@ -22,7 +22,8 @@ export type GeoAction = {
 };
 
 export type WeatherState = {
-  openweathermap: FetchForecastReturn | [];
+  openweathermapDaily: FetchForecastReturn | [];
+  openweathermapHourly: FetchForecastReturn | [];
   weatherbitDaily: FetchForecastReturn | [];
   weatherbitHourly: FetchForecastReturn | [];
 };

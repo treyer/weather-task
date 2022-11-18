@@ -12,10 +12,12 @@ import {
   FETCH_WEATHERBIT_DAILY,
   FETCH_WEATHERBIT_HOURLY,
   SET_GEO,
-  SET_OPENWEATHERMAP,
+  SET_OPENWEATHERMAP_DAILY,
+  SET_OPENWEATHERMAP_HOURLY,
   SET_WEATHERBIT_DAILY,
 } from "store/constants";
 import { GetGeoResponse, FetchForecastReturn } from "api/types";
+import transformHoursToDaysWeather from "helpers/transformHoursToDays";
 
 export default function* rootSagaWatcher() {
   yield all([
@@ -30,8 +32,8 @@ function* fetchGeoWorker() {
   try {
     const payload: GetGeoResponse = yield call(fetchGeo);
     yield put({ type: SET_GEO, payload });
-    // yield put({ type: FETCH_OPENWEATHERMAP });
-    yield put({ type: FETCH_WEATHERBIT_DAILY });
+    yield put({ type: FETCH_OPENWEATHERMAP });
+    // yield put({ type: FETCH_WEATHERBIT_DAILY });
     // yield put({ type: FETCH_WEATHERBIT_HOURLY });
   } catch (error: unknown) {
     // yield put(initializeAlert(e.message));
@@ -49,7 +51,12 @@ function* fetchOpenweathermapWorker() {
       latitude,
       longitude,
     );
-    yield put({ type: SET_OPENWEATHERMAP, payload });
+    const forecastInDays: FetchForecastReturn = yield call(
+      transformHoursToDaysWeather,
+      payload,
+    );
+    yield put({ type: SET_OPENWEATHERMAP_HOURLY, payload });
+    yield put({ type: SET_OPENWEATHERMAP_DAILY, payload: forecastInDays });
   } catch (e) {
     // yield put(initializeAlert(e.message));
   }

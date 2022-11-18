@@ -17,7 +17,7 @@ interface OpenweathermapItem {
   dt_txt: string;
 }
 
-interface WeatherData {
+export interface WeatherData {
   temperature?: number;
   minTemperature?: number;
   maxTemperature?: number;
