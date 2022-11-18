@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import MainLayout from "layouts/MainLayout/MainLayout";
-import { FETCH_GEO } from "store/constants";
 import { RootState } from "store";
+import { fetchGeo } from "store/actions";
 
 function App() {
   const { city } = useSelector((state: RootState) => state.geo);
@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     if (city === "") {
-      dispatch({ type: FETCH_GEO });
+      dispatch(fetchGeo());
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

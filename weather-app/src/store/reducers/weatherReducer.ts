@@ -1,12 +1,15 @@
+import { ShowWeatherType, WeatherSource } from "constants/common";
 import {
   SET_OPENWEATHERMAP_DAILY,
   SET_OPENWEATHERMAP_HOURLY,
   SET_WEATHERBIT_DAILY,
   SET_WEATHERBIT_HOURLY,
-} from "store/constants";
+} from "store/actions/constants";
 import { WeatherAction, WeatherState } from "store/types";
 
 const initialValue: WeatherState = {
+  showType: ShowWeatherType.DAILY,
+  weatherSource: WeatherSource.OPENWEATHERMAP,
   openweathermapDaily: [],
   openweathermapHourly: [],
   weatherbitDaily: [],

@@ -1,4 +1,4 @@
-import { SET_GEO } from "../constants";
+import { SET_GEO } from "../actions/constants";
 import { GeoAction, GeoState } from "../types";
 
 const initialValue: GeoState = {

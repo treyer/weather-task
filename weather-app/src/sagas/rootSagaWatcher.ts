@@ -11,13 +11,19 @@ import {
   FETCH_OPENWEATHERMAP,
   FETCH_WEATHERBIT_DAILY,
   FETCH_WEATHERBIT_HOURLY,
-  SET_GEO,
-  SET_OPENWEATHERMAP_DAILY,
-  SET_OPENWEATHERMAP_HOURLY,
-  SET_WEATHERBIT_DAILY,
-} from "store/constants";
+} from "store/actions/constants";
 import { GetGeoResponse, FetchForecastReturn } from "api/types";
 import transformHoursToDaysWeather from "helpers/transformHoursToDays";
+import {
+  fetchOpenweathermap,
+  // fetchWeatherbitDaily,
+  // fetchWeatherbitHourly,
+  setGeo,
+  setOpenweathermapDaily,
+  setOpenweathermapHourly,
+  setWeatherbitDaily,
+  setWeatherbitHourly,
+} from "store/actions";
 
 export default function* rootSagaWatcher() {
   yield all([
@@ -31,10 +37,10 @@ export default function* rootSagaWatcher() {
 function* fetchGeoWorker() {
   try {
     const payload: GetGeoResponse = yield call(fetchGeo);
-    yield put({ type: SET_GEO, payload });
-    yield put({ type: FETCH_OPENWEATHERMAP });
-    // yield put({ type: FETCH_WEATHERBIT_DAILY });
-    // yield put({ type: FETCH_WEATHERBIT_HOURLY });
+    yield put(setGeo(payload));
+    yield put(fetchOpenweathermap());
+    // yield put(fetchWeatherbitDaily());
+    // yield put(fetchWeatherbitHourly());
   } catch (error: unknown) {
     // yield put(initializeAlert(e.message));
   }
@@ -55,8 +61,8 @@ function* fetchOpenweathermapWorker() {
       transformHoursToDaysWeather,
       payload,
     );
-    yield put({ type: SET_OPENWEATHERMAP_HOURLY, payload });
-    yield put({ type: SET_OPENWEATHERMAP_DAILY, payload: forecastInDays });
+    yield put(setOpenweathermapHourly(payload));
+    yield put(setOpenweathermapDaily(forecastInDays));
   } catch (e) {
     // yield put(initializeAlert(e.message));
   }
@@ -74,9 +80,8 @@ function* fetchWeatherbitWorker(type: "daily" | "hourly") {
       latitude,
       longitude,
     );
-    if (type === "daily") yield put({ type: SET_WEATHERBIT_DAILY, payload });
-    if (type === "hourly")
-      yield put({ type: FETCH_WEATHERBIT_HOURLY, payload });
+    if (type === "daily") yield put(setWeatherbitDaily(payload));
+    if (type === "hourly") yield put(setWeatherbitHourly(payload));
   } catch (error) {
     // yield put(initializeAlert(e.message));
   }

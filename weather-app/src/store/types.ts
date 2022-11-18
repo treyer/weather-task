@@ -1,4 +1,5 @@
 import { FetchForecastReturn } from "api/types";
+import { ShowWeatherType, WeatherSource } from "constants/common";
 
 export type AppState = {
   loading: boolean;
@@ -22,6 +23,8 @@ export type GeoAction = {
 };
 
 export type WeatherState = {
+  showType: ShowWeatherType;
+  weatherSource: WeatherSource;
   openweathermapDaily: FetchForecastReturn | [];
   openweathermapHourly: FetchForecastReturn | [];
   weatherbitDaily: FetchForecastReturn | [];
