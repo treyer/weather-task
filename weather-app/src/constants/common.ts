@@ -1,9 +1,9 @@
 export const EN_US_LOCALE = "en-US";
 export enum ShowWeatherType {
-  HOURLY = "HOURLY",
-  DAILY = "DAILY",
+  HOURLY = "Hourly",
+  DAILY = "Daily",
 }
 export enum WeatherSource {
-  OPENWEATHERMAP = "openweathermap",
-  WEATHERBIT = "weatherbit",
+  OPENWEATHERMAP = "Openweathermap",
+  WEATHERBIT = "Weatherbit",
 }

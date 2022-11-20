@@ -33,5 +33,5 @@ export type WeatherState = {
 
 export type WeatherAction = {
   type: string;
-  payload: FetchForecastReturn;
+  payload: FetchForecastReturn | ShowWeatherType | WeatherSource;
 };

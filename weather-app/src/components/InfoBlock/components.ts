@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 
   width: 100%;
-  height: 25%;
+  height: 150px;
 `;
 
 export default Wrapper;

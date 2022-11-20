@@ -4,8 +4,9 @@ import { RootState } from "store";
 import { ShowWeatherType, WeatherSource } from "constants/common";
 import { FetchForecastReturn } from "api/types";
 
-const selectShowType = (state: RootState) => state.weather.showType;
-const selectWeatherSource = (state: RootState) => state.weather.weatherSource;
+export const selectShowType = (state: RootState) => state.weather.showType;
+export const selectWeatherSource = (state: RootState) =>
+  state.weather.weatherSource;
 const selectOpenweathermapDaily = (state: RootState) =>
   state.weather.openweathermapDaily;
 const selectOpenweathermapHourly = (state: RootState) =>

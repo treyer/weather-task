@@ -32,7 +32,7 @@ export const temperaturePropsToString = (
 ) => {
   if (temperature) return `${Math.round(temperature)}°C`;
   if (minTemperature && maxTemperature) {
-    if (minTemperature === maxTemperature) {
+    if (Math.round(minTemperature) === Math.round(maxTemperature)) {
       return `${Math.round(minTemperature)}°C`;
     }
     return `${Math.round(minTemperature)}°C … ${Math.round(maxTemperature)}°C`;

@@ -1,6 +1,7 @@
 import { fetchImageSrc } from "api/API";
 import CalendarBlock from "components/CalendarBlock/CalendarBlock";
 import InfoBlock from "components/InfoBlock/InfoBlock";
+import WeatherSettings from "components/WeatherSettings/WeatherSettings";
 import WeatherWidget from "components/WeatherWidget/WeatherWidget";
 
 import { useEffect, useState } from "react";
@@ -27,6 +28,7 @@ function MainLayout() {
         <InfoBlock />
         <CalendarBlock />
         <WeatherWidget />
+        <WeatherSettings />
       </Content>
     </Wrapper>
   );

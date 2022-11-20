@@ -9,15 +9,16 @@ export const ItemWrapper = styled.div<Props>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  box-sizing: border-box;
   height: 168px;
+  margin 2px;
+  padding: 5px;
+
   background: url(/assets/svg/${({ imgSrc }) =>
     imgSrc}) center center no-repeat;
   background-size: 150px 70px;
-
-  padding: 5px;
-  box-sizing: border-box;
   outline: 1px solid white;
-  margin 2px;
 `;
 
 export const ItemHeaderWrapper = styled.div`
