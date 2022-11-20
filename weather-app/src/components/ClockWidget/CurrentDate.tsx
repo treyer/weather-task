@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import formatToCurrentDate from "helpers/dateFormat";
+import { formatToCurrentDate } from "helpers/formatter";
 import { DateWrapper } from "./components";
 
 type Props = {

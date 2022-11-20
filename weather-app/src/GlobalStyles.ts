@@ -9,6 +9,16 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  .slick-slider {
+    height: 25%;
+  }
+
+  .slick-list,
+  .slick-track {
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+  }
 `;
 
 export default GlobalStyles;

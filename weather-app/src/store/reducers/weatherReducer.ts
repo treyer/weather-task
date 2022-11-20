@@ -8,7 +8,7 @@ import {
 import { WeatherAction, WeatherState } from "store/types";
 
 const initialValue: WeatherState = {
-  showType: ShowWeatherType.DAILY,
+  showType: ShowWeatherType.HOURLY,
   weatherSource: WeatherSource.OPENWEATHERMAP,
   openweathermapDaily: [],
   openweathermapHourly: [],

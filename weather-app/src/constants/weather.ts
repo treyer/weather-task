@@ -1,4 +1,8 @@
-export const WEATHER_CODES_DESCRIPTION_MATCH = {
+interface Matcher {
+  [key: number]: string;
+}
+
+export const WEATHER_CODES_DESCRIPTION_MATCH: Matcher = {
   200: "Thunderstorm with light rain",
   201: "Thunderstorm with rain",
   202: "Thunderstorm with heavy rain",
@@ -61,7 +65,7 @@ export const WEATHER_CODES_DESCRIPTION_MATCH = {
   900: "Unknown Precipitation",
 };
 
-export const WEATHER_CODES_IMG_MATCH_DAY = {
+export const WEATHER_CODES_IMG_MATCH_DAY: Matcher = {
   200: "rain_thunder.svg",
   201: "rain_thunder.svg",
   202: "rain_thunder.svg",
@@ -124,7 +128,7 @@ export const WEATHER_CODES_IMG_MATCH_DAY = {
   900: "angry_clouds.svg",
 };
 
-export const WEATHER_CODES_IMG_MATCH_NIGHT_FULL = {
+export const WEATHER_CODES_IMG_MATCH_NIGHT_FULL: Matcher = {
   200: "night_full_moon_rain_thunder.svg",
   201: "night_full_moon_rain_thunder.svg",
   202: "night_full_moon_rain_thunder.svg",
@@ -187,7 +191,7 @@ export const WEATHER_CODES_IMG_MATCH_NIGHT_FULL = {
   900: "angry_clouds.svg",
 };
 
-export const WEATHER_CODES_IMG_MATCH_NIGHT_HALF = {
+export const WEATHER_CODES_IMG_MATCH_NIGHT_HALF: Matcher = {
   200: "night_half_moon_rain_thunder.svg",
   201: "night_half_moon_rain_thunder.svg",
   202: "night_half_moon_rain_thunder.svg",

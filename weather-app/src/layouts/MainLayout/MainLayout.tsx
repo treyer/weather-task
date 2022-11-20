@@ -1,7 +1,8 @@
 import { fetchImageSrc } from "api/API";
 import CalendarBlock from "components/CalendarBlock/CalendarBlock";
 import InfoBlock from "components/InfoBlock/InfoBlock";
-import WeatherBlock from "components/WeatherBlock/WeatherBlock";
+import WeatherWidget from "components/WeatherWidget/WeatherWidget";
+
 import { useEffect, useState } from "react";
 import { Background, Content, Wrapper } from "./components";
 
@@ -25,7 +26,7 @@ function MainLayout() {
       <Content imgSrc={bgImgSrc}>
         <InfoBlock />
         <CalendarBlock />
-        <WeatherBlock />
+        <WeatherWidget />
       </Content>
     </Wrapper>
   );
