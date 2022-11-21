@@ -1,11 +1,18 @@
+import { useEffect, useState } from "react";
+
 import { fetchImageSrc } from "api/API";
+import AuthButton from "components/AuthButton/AuthButton";
 import CalendarBlock from "components/CalendarBlock/CalendarBlock";
 import InfoBlock from "components/InfoBlock/InfoBlock";
 import WeatherSettings from "components/WeatherSettings/WeatherSettings";
 import WeatherWidget from "components/WeatherWidget/WeatherWidget";
-
-import { useEffect, useState } from "react";
-import { Background, Content, Wrapper } from "./components";
+import WeatherUpdateButton from "components/WeatherUpdateButton/WeatherUpdateButton";
+import {
+  Background,
+  Content,
+  SettingsPanelWrapper,
+  Wrapper,
+} from "./components";
 
 function MainLayout() {
   const [bgImgSrc, setBgImgSrc] = useState("");
@@ -28,7 +35,11 @@ function MainLayout() {
         <InfoBlock />
         <CalendarBlock />
         <WeatherWidget />
-        <WeatherSettings />
+        <SettingsPanelWrapper>
+          <AuthButton />
+          <WeatherUpdateButton />
+          <WeatherSettings />
+        </SettingsPanelWrapper>
       </Content>
     </Wrapper>
   );

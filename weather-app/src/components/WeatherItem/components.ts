@@ -1,5 +1,6 @@
-import { COLOR_WHITE } from "constants/colors";
 import styled from "styled-components";
+
+import { COLOR_WHITE } from "constants/colors";
 
 type Props = {
   imgSrc: string;

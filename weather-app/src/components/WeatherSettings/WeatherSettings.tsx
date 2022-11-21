@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CoverLayer, SettingsIcon } from "./components";
+import { CoverLayer, SettingsIcon, WeatherSettingsWrapper } from "./components";
 import WeatherModal from "./WeatherModal";
 
 function WeatherSettings() {
@@ -10,11 +10,11 @@ function WeatherSettings() {
   };
 
   return (
-    <>
+    <WeatherSettingsWrapper>
       <SettingsIcon title="Weather settings" onClick={toggleModal} />
       {isModalShow && <CoverLayer onClick={toggleModal} />}
       {isModalShow && <WeatherModal closeCallback={toggleModal} />}
-    </>
+    </WeatherSettingsWrapper>
   );
 }
 

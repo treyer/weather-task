@@ -5,14 +5,16 @@ import { COLOR_BLACK, COLOR_GREY, COLOR_WHITE } from "constants/colors";
 
 import styled from "styled-components";
 
+export const WeatherSettingsWrapper = styled.div`
+  position: relative;
+`;
+
 export const SettingsIcon = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
   z-index: 10;
 
   width: 25px;
   height: 25px;
+  padding: 0;
 
   background: url(/assets/svg/settings.svg) center center no-repeat;
   background-size: 25px 25px;
@@ -41,8 +43,8 @@ export const CoverLayer = styled.div`
 
 export const ModalWrapper = styled(Card)`
   position: absolute;
-  top: 58px;
-  right: 12px;
+  top: 38px;
+  right: -8px;
   z-index: 10;
 
   width: 250px;

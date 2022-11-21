@@ -39,3 +39,14 @@ export const Content = styled.main<Prop>`
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
   transition: background-image 1s ease-in-out;
 `;
+
+export const SettingsPanelWrapper = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // width: 200px;
+`;
