@@ -1,13 +1,13 @@
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import apiCalendar from "api/apiCalendar";
 import { useState } from "react";
 
+import apiCalendar from "api/ApiCalendar/ApiCalendar";
 import LoginButton from "./components";
 
 function AuthButton() {
   const [isSignIn, setIsSignIn] = useState(false);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (!isSignIn) {
       apiCalendar.handleAuthClick();
     }

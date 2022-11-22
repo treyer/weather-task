@@ -1,11 +1,6 @@
 import axios from "axios";
 // import { setupCache } from "axios-cache-adapter";
 import {
-  OPENWEATHERMAP_KEY,
-  UNSPLASH_CLIENT_ID,
-  WEATHERBIT_KEY,
-} from "constants/credentials";
-import {
   GetGeoResponse,
   OpenweathermapResponse,
   FetchForecastReturn,
@@ -28,7 +23,7 @@ export const fetchImageSrc = async (keywords: string): Promise<string> => {
       params: {
         query: keywords,
         orientation: "landscape",
-        client_id: UNSPLASH_CLIENT_ID,
+        client_id: process.env.REACT_APP_UNSPLASH_CLIENT_ID,
       },
     })
     .then((res) => res.data)
@@ -56,7 +51,7 @@ export const fetchOpenweathermapForecast = async (
       params: {
         lat: latitude,
         lon: longitude,
-        appid: OPENWEATHERMAP_KEY,
+        appid: process.env.REACT_APP_OPENWEATHERMAP_KEY,
         units: "metric",
       },
     })
@@ -79,7 +74,7 @@ export const fetchWeatherbitForecast = async (
       params: {
         lat: latitude,
         lon: longitude,
-        key: WEATHERBIT_KEY,
+        key: process.env.REACT_APP_WEATHERBIT_KEY,
       },
     })
     .then((res) => res.data);
