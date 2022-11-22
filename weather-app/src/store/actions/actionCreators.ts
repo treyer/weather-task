@@ -1,12 +1,17 @@
 import { FetchForecastReturn, GetGeoResponse } from "api/types";
 import { ShowWeatherType, WeatherSource } from "constants/common";
+import { CalendarEvent } from "store/types";
 import {
+  CLEAR_CALENDAR_EVENTS,
+  FETCH_CALENDAR_EVENTS,
   FETCH_GEO,
   FETCH_OPENWEATHERMAP,
   FETCH_WEATHERBIT_DAILY,
   FETCH_WEATHERBIT_HOURLY,
   HIDE_LOADER,
+  SET_CALENDAR_EVENTS,
   SET_GEO,
+  SET_IS_SIGNED_IN,
   SET_OPENWEATHERMAP_DAILY,
   SET_OPENWEATHERMAP_HOURLY,
   SET_WEATHERBIT_DAILY,
@@ -17,6 +22,10 @@ import {
 
 export const showLoader = () => ({ type: SHOW_LOADER });
 export const hideLoader = () => ({ type: HIDE_LOADER });
+export const setIsSignedIn = (payload: boolean) => ({
+  type: SET_IS_SIGNED_IN,
+  payload,
+});
 export const fetchGeo = () => ({ type: FETCH_GEO });
 export const setGeo = (payload: GetGeoResponse) => ({ type: SET_GEO, payload });
 export const setWeatherShowType = (payload: ShowWeatherType) => ({
@@ -46,3 +55,9 @@ export const setWeatherbitHourly = (payload: FetchForecastReturn) => ({
   type: FETCH_WEATHERBIT_HOURLY,
   payload,
 });
+export const fetchCalendarEvents = () => ({ type: FETCH_CALENDAR_EVENTS });
+export const setCalendarEvents = (payload: Array<CalendarEvent> | []) => ({
+  type: SET_CALENDAR_EVENTS,
+  payload,
+});
+export const clearCalendarEvents = () => ({ type: CLEAR_CALENDAR_EVENTS });

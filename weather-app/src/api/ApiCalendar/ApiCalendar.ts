@@ -18,6 +18,10 @@ class ApiCalendar {
 
   onLoadCallback: any = null;
 
+  onSignInCallback: any = null;
+
+  onSignOutCallback: any = null;
+
   calendar: string = "primary";
 
   static instance: any;
@@ -51,6 +55,22 @@ class ApiCalendar {
 
   get sign(): boolean {
     return !!this.tokenClient;
+  }
+
+  getTokenClient(): google.accounts.oauth2.TokenClient | null {
+    return this.tokenClient;
+  }
+
+  setTokenClient(tokenClient: google.accounts.oauth2.TokenClient | null): void {
+    this.tokenClient = tokenClient;
+  }
+
+  setSignInCallback(callback: () => void | null) {
+    this.onSignInCallback = callback;
+  }
+
+  setSignOutCallback(callback: () => void | null) {
+    this.onSignOutCallback = callback;
   }
 
   /**
@@ -96,7 +116,11 @@ class ApiCalendar {
         client_id: this.config.clientId,
         scope: this.config.scope,
         prompt: "",
-        callback: (): void => {},
+        callback: (): void => {
+          if (this.onSignInCallback) {
+            this.onSignInCallback();
+          }
+        },
       });
     };
   }
@@ -148,7 +172,11 @@ class ApiCalendar {
       const token = gapi.client.getToken();
       if (token !== null) {
         google.accounts.id.disableAutoSelect();
-        google.accounts.oauth2.revoke(token.access_token, (): void => {});
+        google.accounts.oauth2.revoke(token.access_token, (): void => {
+          if (this.onSignOutCallback) {
+            this.onSignOutCallback();
+          }
+        });
         gapi.client.setToken(null);
       }
     } else {

@@ -3,10 +3,12 @@ import { ShowWeatherType, WeatherSource } from "constants/common";
 
 export type AppState = {
   loading: boolean;
+  isSignedIn: boolean;
 };
 
 export type AppAction = {
   type: string;
+  payload?: boolean;
 };
 
 export type GeoState = {
@@ -34,4 +36,25 @@ export type WeatherState = {
 export type WeatherAction = {
   type: string;
   payload: FetchForecastReturn | ShowWeatherType | WeatherSource;
+};
+
+export interface CalendarEvent {
+  id: string;
+  summary: string;
+  start: {
+    dateTime: string;
+  };
+  end: {
+    dateTime: string;
+  };
+  htmlLink: string;
+}
+
+export type CalendarState = {
+  calendarEvents: Array<CalendarEvent> | [];
+};
+
+export type CalendarAction = {
+  type: string;
+  payload?: Array<CalendarEvent>;
 };

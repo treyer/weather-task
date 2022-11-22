@@ -7,6 +7,7 @@ import {
   fetchWeatherbitForecast,
 } from "api/API";
 import {
+  FETCH_CALENDAR_EVENTS,
   FETCH_GEO,
   FETCH_OPENWEATHERMAP,
   FETCH_WEATHERBIT_DAILY,
@@ -16,6 +17,7 @@ import { GetGeoResponse, FetchForecastReturn } from "api/types";
 import transformHoursToDaysWeather from "helpers/transformHoursToDays";
 import {
   fetchOpenweathermap,
+  setCalendarEvents,
   // fetchWeatherbitDaily,
   // fetchWeatherbitHourly,
   setGeo,
@@ -24,6 +26,8 @@ import {
   setWeatherbitDaily,
   setWeatherbitHourly,
 } from "store/actions";
+import apiCalendar from "api/ApiCalendar/ApiCalendar";
+import { CalendarEvent } from "store/types";
 
 export default function* rootSagaWatcher() {
   yield all([
@@ -31,6 +35,7 @@ export default function* rootSagaWatcher() {
     takeEvery(FETCH_OPENWEATHERMAP, fetchOpenweathermapWorker),
     takeEvery(FETCH_WEATHERBIT_DAILY, fetchWeatherbitWorker, "daily"),
     takeEvery(FETCH_WEATHERBIT_HOURLY, fetchWeatherbitWorker, "hourly"),
+    takeEvery(FETCH_CALENDAR_EVENTS, fetchCalendarEventsWorker),
   ]);
 }
 
@@ -82,6 +87,30 @@ function* fetchWeatherbitWorker(type: "daily" | "hourly") {
     );
     if (type === "daily") yield put(setWeatherbitDaily(payload));
     if (type === "hourly") yield put(setWeatherbitHourly(payload));
+  } catch (error) {
+    // yield put(initializeAlert(e.message));
+  }
+}
+
+const getCalendarEvents = async (): Promise<Array<CalendarEvent>> => {
+  const calendarEvents = await apiCalendar
+    .listUpcomingEvents(10)
+    .then(({ result }: any) => result.items);
+  return calendarEvents.map((el: CalendarEvent) => {
+    return {
+      id: el.id,
+      summary: el.summary,
+      start: { dateTime: el.start.dateTime },
+      end: { dateTime: el.end.dateTime },
+      htmlLink: el.htmlLink,
+    };
+  });
+};
+
+function* fetchCalendarEventsWorker() {
+  try {
+    const payload: Array<CalendarEvent> = yield getCalendarEvents();
+    yield put(setCalendarEvents(payload));
   } catch (error) {
     // yield put(initializeAlert(e.message));
   }

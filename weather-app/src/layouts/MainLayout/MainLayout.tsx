@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+// @ts-ignore
+import { ToastContainer } from "react-toaster-lib";
 
 import { fetchImageSrc } from "api/API";
 import AuthButton from "components/AuthButton/AuthButton";
@@ -41,6 +43,7 @@ function MainLayout() {
           <WeatherSettings />
         </SettingsPanelWrapper>
       </Content>
+      <ToastContainer />
     </Wrapper>
   );
 }
