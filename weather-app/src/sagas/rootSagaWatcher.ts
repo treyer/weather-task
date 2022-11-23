@@ -94,7 +94,7 @@ function* fetchWeatherbitWorker(type: "daily" | "hourly") {
 
 const getCalendarEvents = async (): Promise<Array<CalendarEvent>> => {
   const calendarEvents = await apiCalendar
-    .listUpcomingEvents(10)
+    .listUpcomingEvents(3)
     .then(({ result }: any) => result.items);
   return calendarEvents.map((el: CalendarEvent) => {
     return {

@@ -4,11 +4,11 @@ import { ToastContainer } from "react-toaster-lib";
 
 import { fetchImageSrc } from "api/API";
 import AuthButton from "components/AuthButton/AuthButton";
-import CalendarBlock from "components/CalendarBlock/CalendarBlock";
 import InfoBlock from "components/InfoBlock/InfoBlock";
 import WeatherSettings from "components/WeatherSettings/WeatherSettings";
 import WeatherWidget from "components/WeatherWidget/WeatherWidget";
 import WeatherUpdateButton from "components/WeatherUpdateButton/WeatherUpdateButton";
+import CalendarWidget from "components/CalendarWidget/CalendarWidget";
 import {
   Background,
   Content,
@@ -35,7 +35,7 @@ function MainLayout() {
       <Background imgSrc={bgImgSrc} />
       <Content imgSrc={bgImgSrc}>
         <InfoBlock />
-        <CalendarBlock />
+        <CalendarWidget />
         <WeatherWidget />
         <SettingsPanelWrapper>
           <AuthButton />
