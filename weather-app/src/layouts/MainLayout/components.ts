@@ -11,6 +11,14 @@ export const Wrapper = styled.div`
   height: 100vh;
 `;
 
+export const LineWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 150px;
+`;
+
 export const Background = styled.div<Prop>`
   width: 100%;
   height: 100vh;
