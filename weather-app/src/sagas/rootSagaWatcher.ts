@@ -4,6 +4,7 @@ import { all, call, takeEvery, put, select } from "redux-saga/effects";
 import {
   fetchGeo,
   fetchOpenweathermapForecast,
+  fetchTimezoneByCoordinates,
   fetchWeatherbitForecast,
 } from "api/API";
 import {
@@ -12,6 +13,7 @@ import {
   FETCH_OPENWEATHERMAP,
   FETCH_WEATHERBIT_DAILY,
   FETCH_WEATHERBIT_HOURLY,
+  HANDLE_DATA_FROM_AUTOCOMPLETE,
 } from "store/actions/constants";
 import { GetGeoResponse, FetchForecastReturn } from "api/types";
 import transformHoursToDaysWeather from "helpers/transformHoursToDays";
@@ -28,6 +30,7 @@ import {
 } from "store/actions";
 import apiCalendar from "api/ApiCalendar/ApiCalendar";
 import { CalendarEvent } from "store/types";
+import { AutocompleteData } from "components/CityWidget/CityWidget";
 
 export default function* rootSagaWatcher() {
   yield all([
@@ -36,6 +39,7 @@ export default function* rootSagaWatcher() {
     takeEvery(FETCH_WEATHERBIT_DAILY, fetchWeatherbitWorker, "daily"),
     takeEvery(FETCH_WEATHERBIT_HOURLY, fetchWeatherbitWorker, "hourly"),
     takeEvery(FETCH_CALENDAR_EVENTS, fetchCalendarEventsWorker),
+    takeEvery(HANDLE_DATA_FROM_AUTOCOMPLETE, handleDataFromAutocompleteWorker),
   ]);
 }
 
@@ -111,6 +115,28 @@ function* fetchCalendarEventsWorker() {
   try {
     const payload: Array<CalendarEvent> = yield getCalendarEvents();
     yield put(setCalendarEvents(payload));
+  } catch (error) {
+    // yield put(initializeAlert(e.message));
+  }
+}
+
+function* handleDataFromAutocompleteWorker(action: {
+  type: string;
+  payload: AutocompleteData;
+}) {
+  try {
+    const timeZone: string = yield fetchTimezoneByCoordinates(
+      action.payload.latitude,
+      action.payload.longitude,
+    );
+    yield put(
+      setGeo({
+        location: action.payload.location,
+        timeZone,
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude,
+      }),
+    );
   } catch (error) {
     // yield put(initializeAlert(e.message));
   }

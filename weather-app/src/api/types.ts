@@ -1,6 +1,5 @@
 export interface GetGeoResponse {
-  city: string;
-  countryName: string;
+  location: string;
   timeZone: string;
   latitude: number;
   longitude: number;

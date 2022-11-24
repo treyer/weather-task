@@ -1,4 +1,5 @@
 import { FetchForecastReturn, GetGeoResponse } from "api/types";
+import { AutocompleteData } from "components/CityWidget/CityWidget";
 import { ShowWeatherType, WeatherSource } from "constants/common";
 import { CalendarEvent } from "store/types";
 import {
@@ -8,6 +9,7 @@ import {
   FETCH_OPENWEATHERMAP,
   FETCH_WEATHERBIT_DAILY,
   FETCH_WEATHERBIT_HOURLY,
+  HANDLE_DATA_FROM_AUTOCOMPLETE,
   HIDE_LOADER,
   SET_CALENDAR_EVENTS,
   SET_GEO,
@@ -28,6 +30,10 @@ export const setIsSignedIn = (payload: boolean) => ({
 });
 export const fetchGeo = () => ({ type: FETCH_GEO });
 export const setGeo = (payload: GetGeoResponse) => ({ type: SET_GEO, payload });
+export const handleDataFromAutocomplete = (payload: AutocompleteData) => ({
+  type: HANDLE_DATA_FROM_AUTOCOMPLETE,
+  payload,
+});
 export const setWeatherShowType = (payload: ShowWeatherType) => ({
   type: SET_WEATHER_SHOW_TYPE,
   payload,

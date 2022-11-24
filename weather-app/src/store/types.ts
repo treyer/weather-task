@@ -12,8 +12,7 @@ export type AppAction = {
 };
 
 export type GeoState = {
-  city: string;
-  countryName: string;
+  location: string;
   timeZone: string;
   latitude: number | null;
   longitude: number | null;

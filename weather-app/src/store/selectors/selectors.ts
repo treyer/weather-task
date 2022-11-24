@@ -5,6 +5,7 @@ import { ShowWeatherType, WeatherSource } from "constants/common";
 import { FetchForecastReturn } from "api/types";
 
 export const selectIsSignedIn = (state: RootState) => state.app.isSignedIn;
+export const selectLocation = (state: RootState) => state.geo.location;
 export const selectCalendarEvents = (state: RootState) =>
   state.calendar.calendarEvents;
 export const selectShowType = (state: RootState) => state.weather.showType;

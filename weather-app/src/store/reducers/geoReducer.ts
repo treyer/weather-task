@@ -2,8 +2,7 @@ import { SET_GEO } from "../actions/constants";
 import { GeoAction, GeoState } from "../types";
 
 const initialValue: GeoState = {
-  city: "",
-  countryName: "",
+  location: "",
   timeZone: "UTC",
   latitude: null,
   longitude: null,

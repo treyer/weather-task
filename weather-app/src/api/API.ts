@@ -34,12 +34,28 @@ export const fetchImageSrc = async (keywords: string): Promise<string> => {
 export const fetchGeo = async (): Promise<GetGeoResponse> => {
   const geo = await axios.get("http://ipwho.is/").then((res) => res.data);
   return {
-    city: geo.city,
-    countryName: geo.country,
+    location: `${geo.city}, ${geo.country}`,
     timeZone: geo.timezone.id,
     latitude: geo.latitude,
     longitude: geo.longitude,
   };
+};
+
+export const fetchTimezoneByCoordinates = async (
+  latitude: number,
+  longitude: number,
+): Promise<string> => {
+  const timezoneInfo: { timezone: string } = await axios
+    .get("https://api.ipgeolocation.io/timezone?", {
+      params: {
+        apiKey: process.env.REACT_APP_IP_GEOLOCATION,
+        lat: latitude,
+        long: longitude,
+      },
+    })
+    .then((res) => res.data);
+
+  return timezoneInfo.timezone;
 };
 
 export const fetchOpenweathermapForecast = async (

@@ -6,11 +6,11 @@ import { RootState } from "store";
 import { fetchGeo } from "store/actions";
 
 function App() {
-  const { city } = useSelector((state: RootState) => state.geo);
+  const { location } = useSelector((state: RootState) => state.geo);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (city === "") {
+    if (location === "") {
       dispatch(fetchGeo());
     }
 
