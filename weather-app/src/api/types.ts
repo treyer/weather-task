@@ -17,6 +17,7 @@ interface OpenweathermapItem {
 }
 
 export interface WeatherData {
+  id?: string;
   temperature?: number;
   minTemperature?: number;
   maxTemperature?: number;

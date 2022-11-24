@@ -23,7 +23,7 @@ function WeatherWidget() {
     <Wrapper>
       <Slider {...settings}>
         {weather.map((el) => (
-          <WeatherItem key={el.dateInText} item={el} />
+          <WeatherItem key={el.id} item={el} />
         ))}
       </Slider>
     </Wrapper>

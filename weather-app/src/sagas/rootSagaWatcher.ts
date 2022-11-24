@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { all, call, takeEvery, put, select } from "redux-saga/effects";
+import uuid from "react-uuid";
 // @ts-ignore
 import { toaster } from "react-toaster-lib";
 
@@ -87,19 +88,21 @@ function* fetchOpenweathermapWorker() {
   try {
     const { latitude, longitude } = yield select((state) => state.geo);
     if (latitude === null || longitude === null) {
-      throw new Error("Incorrect latitude and (or) longitude input");
+      throw new Error();
     }
-    const payload: FetchForecastReturn = yield call(
+    let OWMHours: FetchForecastReturn = yield call(
       fetchOpenweathermapForecast,
       latitude,
       longitude,
     );
-    const forecastInDays: FetchForecastReturn = yield call(
+    OWMHours = yield addIDsToWeatherData(OWMHours);
+    yield put(setOpenweathermapHourly(OWMHours));
+    let OWMDays: FetchForecastReturn = yield call(
       transformHoursToDaysWeather,
-      payload,
+      OWMHours,
     );
-    yield put(setOpenweathermapHourly(payload));
-    yield put(setOpenweathermapDaily(forecastInDays));
+    OWMDays = yield addIDsToWeatherData(OWMDays);
+    yield put(setOpenweathermapDaily(OWMDays));
   } catch (error: any) {
     showError(
       "Error occurs while fetching weather forecast from Openweathermap",
@@ -111,15 +114,16 @@ function* fetchWeatherbitDailyWorker() {
   try {
     const { latitude, longitude } = yield select((state) => state.geo);
     if (latitude === null || longitude === null) {
-      throw new Error("Incorrect latitude and (or) longitude");
+      throw new Error();
     }
-    const payload: FetchForecastReturn = yield call(
+    let WBDaily: FetchForecastReturn = yield call(
       fetchWeatherbitForecast,
       ShowWeatherType.DAILY,
       latitude,
       longitude,
     );
-    yield put(setWeatherbitDaily(payload));
+    WBDaily = yield addIDsToWeatherData(WBDaily);
+    yield put(setWeatherbitDaily(WBDaily));
   } catch (error: any) {
     showError("Error occurs while fetching daily forecast from Weatherbit");
   }
@@ -129,15 +133,16 @@ function* fetchWeatherbitHourlyWorker() {
   try {
     const { latitude, longitude } = yield select((state) => state.geo);
     if (latitude === null || longitude === null) {
-      throw new Error("Incorrect latitude and (or) longitude");
+      throw new Error();
     }
-    const payload: FetchForecastReturn = yield call(
+    let WBHourly: FetchForecastReturn = yield call(
       fetchWeatherbitForecast,
       ShowWeatherType.HOURLY,
       latitude,
       longitude,
     );
-    yield put(setWeatherbitHourly(payload));
+    WBHourly = addIDsToWeatherData(WBHourly);
+    yield put(setWeatherbitHourly(WBHourly));
   } catch (error: any) {
     showError("Error occurs while fetching hourly forecast from Weatherbit");
   }
@@ -169,4 +174,8 @@ function* fetchCalendarEventsWorker() {
 
 function showError(message: string) {
   toaster.addToast(message, "Attention", { type: "danger", lifeTime: 3000 });
+}
+
+function addIDsToWeatherData(arr: FetchForecastReturn): FetchForecastReturn {
+  return arr.map((el) => ({ ...el, id: uuid() }));
 }
