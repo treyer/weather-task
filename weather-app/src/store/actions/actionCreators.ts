@@ -51,12 +51,16 @@ export const setOpenweathermapDaily = (payload: FetchForecastReturn) => ({
   type: SET_OPENWEATHERMAP_DAILY,
   payload,
 });
-export const fetchWeatherbitDaily = () => ({ type: FETCH_WEATHERBIT_DAILY });
+export const fetchWeatherbitDaily = () => ({
+  type: FETCH_WEATHERBIT_DAILY,
+});
 export const setWeatherbitDaily = (payload: FetchForecastReturn) => ({
   type: SET_WEATHERBIT_DAILY,
   payload,
 });
-export const fetchWeatherbitHourly = () => ({ type: FETCH_WEATHERBIT_HOURLY });
+export const fetchWeatherbitHourly = () => ({
+  type: FETCH_WEATHERBIT_HOURLY,
+});
 export const setWeatherbitHourly = (payload: FetchForecastReturn) => ({
   type: FETCH_WEATHERBIT_HOURLY,
   payload,

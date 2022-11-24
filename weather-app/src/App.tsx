@@ -13,9 +13,7 @@ function App() {
     if (location === "") {
       dispatch(fetchGeo());
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, location]);
 
   return <MainLayout />;
 }

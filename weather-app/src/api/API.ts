@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ShowWeatherType } from "constants/common";
 // import { setupCache } from "axios-cache-adapter";
 import {
   GetGeoResponse,
@@ -81,12 +82,12 @@ export const fetchOpenweathermapForecast = async (
 };
 
 export const fetchWeatherbitForecast = async (
-  type: "hourly" | "daily",
+  type: ShowWeatherType,
   latitude: number,
   longitude: number,
 ): Promise<FetchForecastReturn> => {
   const weatherList: WeatherbitResponse = await axios
-    .get(`https://api.weatherbit.io/v2.0/forecast/${type}?`, {
+    .get(`https://api.weatherbit.io/v2.0/forecast/${type.toLowerCase()}?`, {
       params: {
         lat: latitude,
         lon: longitude,
@@ -95,7 +96,7 @@ export const fetchWeatherbitForecast = async (
     })
     .then((res) => res.data);
   const result = weatherList.data.map((el) => {
-    if (type === "hourly") {
+    if (type === ShowWeatherType.HOURLY) {
       return {
         temperature: el.temp,
         weatherCode: el.weather.code,
