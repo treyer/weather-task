@@ -24,6 +24,7 @@ import {
   fetchOpenweathermap,
   fetchWeatherbitDaily,
   fetchWeatherbitHourly,
+  setBgSearchPhrase,
   setCalendarEvents,
   setGeo,
   setOpenweathermapDaily,
@@ -35,6 +36,7 @@ import apiCalendar from "api/ApiCalendar/ApiCalendar";
 import { CalendarEvent } from "store/types";
 import { AutocompleteData } from "components/CityWidget/CityWidget";
 import { ShowWeatherType } from "constants/common";
+import { WEATHER_CODES_DESCRIPTION_MATCH } from "constants/weather";
 
 export default function* rootSagaWatcher() {
   yield all([
@@ -106,6 +108,18 @@ function* fetchOpenweathermapWorker() {
     );
     OWMDays = yield addIDsToWeatherData(OWMDays);
     yield put(setOpenweathermapDaily(OWMDays));
+    if (OWMDays.length > 0) {
+      yield put(
+        setBgSearchPhrase(
+          WEATHER_CODES_DESCRIPTION_MATCH[OWMDays[0].weatherCode].toLowerCase(),
+        ),
+      );
+    }
+    yield put(
+      setBgSearchPhrase(
+        WEATHER_CODES_DESCRIPTION_MATCH[OWMDays[0].weatherCode].toLowerCase(),
+      ),
+    );
   } catch (error: any) {
     showError(
       "Error occurs while fetching weather forecast from Openweathermap",

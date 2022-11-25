@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 // @ts-ignore
 import { ToastContainer } from "react-toaster-lib";
 
 import { fetchImageSrc } from "api/API";
+import { selectBgSearchPhrase } from "store/selectors/selectors";
+import { RootState } from "store";
 import CityWidget from "components/CityWidget/CityWidget";
 import ClockWidget from "components/ClockWidget/ClockWidget";
 import AuthButton from "components/AuthButton/AuthButton";
@@ -19,18 +22,21 @@ import {
 } from "./components";
 
 function MainLayout() {
+  const bgSearchPhrase = useSelector((state: RootState) =>
+    selectBgSearchPhrase(state),
+  );
   const [bgImgSrc, setBgImgSrc] = useState("");
 
   useEffect(() => {
     const fetchImage = async () => {
       const img = new Image();
-      img.src = await fetchImageSrc("weather, rain");
+      img.src = await fetchImageSrc(bgSearchPhrase);
       img.onload = () => {
         setBgImgSrc(`url(${img.src})`);
       };
     };
     fetchImage();
-  }, []);
+  }, [bgSearchPhrase]);
 
   return (
     <Wrapper>

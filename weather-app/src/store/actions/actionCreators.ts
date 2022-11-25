@@ -11,6 +11,7 @@ import {
   FETCH_WEATHERBIT_HOURLY,
   HANDLE_DATA_FROM_AUTOCOMPLETE,
   HIDE_LOADER,
+  SET_BG_SEARCH_PHRASE,
   SET_CALENDAR_EVENTS,
   SET_GEO,
   SET_IS_SIGNED_IN,
@@ -26,6 +27,10 @@ export const showLoader = () => ({ type: SHOW_LOADER });
 export const hideLoader = () => ({ type: HIDE_LOADER });
 export const setIsSignedIn = (payload: boolean) => ({
   type: SET_IS_SIGNED_IN,
+  payload,
+});
+export const setBgSearchPhrase = (payload: string) => ({
+  type: SET_BG_SEARCH_PHRASE,
   payload,
 });
 export const fetchGeo = () => ({ type: FETCH_GEO });

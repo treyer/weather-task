@@ -1,6 +1,7 @@
 export const SHOW_LOADER = "APP/SHOW_LOADER";
 export const HIDE_LOADER = "APP/HIDE_LOADER";
 export const SET_IS_SIGNED_IN = "APP/SET_IS_SIGNED_IN";
+export const SET_BG_SEARCH_PHRASE = "APP/SET_BG_SEARCH_PHRASE";
 export const FETCH_GEO = "GEO/FETCH_GEO";
 export const SET_GEO = "GEO/SET_GEO";
 export const HANDLE_DATA_FROM_AUTOCOMPLETE =

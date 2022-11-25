@@ -4,11 +4,12 @@ import { ShowWeatherType, WeatherSource } from "constants/common";
 export type AppState = {
   loading: boolean;
   isSignedIn: boolean;
+  bgSearchPhrase: string;
 };
 
 export type AppAction = {
   type: string;
-  payload?: boolean;
+  payload?: boolean | string;
 };
 
 export type GeoState = {

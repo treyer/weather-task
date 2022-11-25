@@ -1,11 +1,16 @@
 import {
   HIDE_LOADER,
+  SET_BG_SEARCH_PHRASE,
   SET_IS_SIGNED_IN,
   SHOW_LOADER,
 } from "../actions/constants";
 import { AppAction, AppState } from "../types";
 
-const initialValue: AppState = { loading: false, isSignedIn: false };
+const initialValue: AppState = {
+  loading: false,
+  isSignedIn: false,
+  bgSearchPhrase: "weather forecast",
+};
 
 const appReducer = (
   state: AppState = initialValue,
@@ -17,7 +22,12 @@ const appReducer = (
     case HIDE_LOADER:
       return { ...state, loading: false };
     case SET_IS_SIGNED_IN:
-      return { ...state, isSignedIn: payload || false };
+      return { ...state, isSignedIn: (payload as boolean) || false };
+    case SET_BG_SEARCH_PHRASE:
+      return {
+        ...state,
+        bgSearchPhrase: (payload as string) || "weather forecast pattern",
+      };
     default:
       return state;
   }

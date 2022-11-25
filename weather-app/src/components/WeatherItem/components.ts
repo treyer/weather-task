@@ -19,7 +19,7 @@ export const ItemWrapper = styled.div<Props>`
   background: url(/assets/svg/${({ imgSrc }) =>
     imgSrc}) center center no-repeat;
   background-size: 150px 70px;
-  outline: 1px solid white;
+  border: 1px solid white;
 `;
 
 export const ItemHeaderWrapper = styled.div`
