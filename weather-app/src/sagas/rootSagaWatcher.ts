@@ -63,24 +63,27 @@ function* handleDataFromAutocompleteWorker(action: {
   type: string;
   payload: AutocompleteData;
 }) {
-  try {
-    const timeZone: string = yield fetchTimezoneByCoordinates(
-      action.payload.latitude,
-      action.payload.longitude,
-    );
-    yield put(
-      setGeo({
-        location: action.payload.location,
-        timeZone,
-        latitude: action.payload.latitude,
-        longitude: action.payload.longitude,
-      }),
-    );
-    yield put(fetchOpenweathermap());
-    yield put(fetchWeatherbitDaily());
-    yield put(fetchWeatherbitHourly());
-  } catch (error: any) {
-    showError("Error occurs while handling data from google autocomplete");
+  const { location } = yield select((state) => state.geo);
+  if (action.payload.location !== location) {
+    try {
+      const timeZone: string = yield fetchTimezoneByCoordinates(
+        action.payload.latitude,
+        action.payload.longitude,
+      );
+      yield put(
+        setGeo({
+          location: action.payload.location,
+          timeZone,
+          latitude: action.payload.latitude,
+          longitude: action.payload.longitude,
+        }),
+      );
+      yield put(fetchOpenweathermap());
+      yield put(fetchWeatherbitDaily());
+      yield put(fetchWeatherbitHourly());
+    } catch (error: any) {
+      showError("Error occurs while handling data from google autocomplete");
+    }
   }
 }
 
