@@ -2,11 +2,12 @@ import { SetStateAction, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { usePlacesWidget } from "react-google-autocomplete";
 import { useWindowWidth } from "@react-hook/window-size";
+import TextField from "@mui/material/TextField";
 
 import { RootState } from "store";
 import { selectLocation } from "store/selectors/selectors";
 import { handleDataFromAutocomplete } from "store/actions";
-import TextField from "@mui/material/TextField";
+import ErrorBoundary from "components/ErrorBoundary/ErrorBoundary";
 import Wrapper from "./components";
 
 export type AutocompleteData = {
@@ -49,17 +50,19 @@ function CityWidget() {
   };
 
   return (
-    <Wrapper screenWidth={screenWidth}>
-      <TextField
-        sx={{ input: { color: "white" }, label: { color: "white" } }}
-        id="filled-basic"
-        label="Location"
-        variant="filled"
-        inputRef={materialRef}
-        value={inputValue}
-        onChange={handleInputChange}
-      />
-    </Wrapper>
+    <ErrorBoundary>
+      <Wrapper screenWidth={screenWidth}>
+        <TextField
+          sx={{ input: { color: "white" }, label: { color: "white" } }}
+          id="filled-basic"
+          label="Location"
+          variant="filled"
+          inputRef={materialRef}
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+      </Wrapper>
+    </ErrorBoundary>
   );
 }
 

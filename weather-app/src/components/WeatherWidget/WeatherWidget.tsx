@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import selectWeather from "store/selectors/selectors";
 import { RootState } from "store";
 import WeatherItem from "components/WeatherItem/WeatherItem";
+import ErrorBoundary from "components/ErrorBoundary/ErrorBoundary";
 import Wrapper from "./components";
 
 function WeatherWidget() {
@@ -45,13 +46,15 @@ function WeatherWidget() {
   };
 
   return (
-    <Wrapper>
-      <Slider {...settings} key={key.current}>
-        {weather.map((el) => (
-          <WeatherItem key={el.id} item={el} />
-        ))}
-      </Slider>
-    </Wrapper>
+    <ErrorBoundary>
+      <Wrapper>
+        <Slider {...settings} key={key.current}>
+          {weather.map((el) => (
+            <WeatherItem key={el.id} item={el} />
+          ))}
+        </Slider>
+      </Wrapper>
+    </ErrorBoundary>
   );
 }
 
