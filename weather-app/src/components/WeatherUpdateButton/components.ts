@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 const UpdateButton = styled.button`
-  width: 40px;
-  height: 38px;
+  width: ${({ theme }) => theme.sizes[4]}px;
+  height: ${({ theme }) => theme.sizes[4] - 2}px;
 
   background: url(/assets/svg/update_weather.svg) center center no-repeat;
-  background-size: 40px 38px;
+  background-size: ${({ theme }) => theme.sizes[4]}px
+    ${({ theme }) => theme.sizes[4] - 2}px;
   border: none;
   padding-left: 0;
-  margin-right: 10px;
+  margin-right: ${({ theme }) => theme.sizes[0] - 2}px;
 
   cursor: pointer;
 

@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 // @ts-ignore
 import { ToastContainer, toaster } from "react-toaster-lib";
 import { PulseLoader } from "react-spinners";
+import { useWindowWidth } from "@react-hook/window-size";
+import { ThemeConsumer } from "styled-components";
 
 import { fetchImageSrc } from "api/API";
 import { selectBgSearchPhrase, selectLoading } from "store/selectors/selectors";
@@ -23,6 +25,7 @@ import {
 } from "./components";
 
 function MainLayout() {
+  const screenWidth = useWindowWidth();
   const bgSearchPhrase = useSelector((state: RootState) =>
     selectBgSearchPhrase(state),
   );
@@ -56,27 +59,33 @@ function MainLayout() {
 
   return (
     <Wrapper>
-      <Background imgSrc={bgImgSrc} />
-      <Content imgSrc={bgImgSrc}>
-        <LineWrapper>
-          <ClockWidget />
-          <CityWidget />
-        </LineWrapper>
-        <CalendarWidget />
-        <WeatherWidget />
-        <SettingsPanelWrapper>
-          <AuthButton />
-          <WeatherUpdateButton />
-          <WeatherSettings />
-        </SettingsPanelWrapper>
-        <PulseLoader
-          cssOverride={override}
-          color="white"
-          speedMultiplier={0.7}
-          loading={loading}
-        />
-      </Content>
-      <ToastContainer />
+      <ThemeConsumer>
+        {(theme) => (
+          <>
+            {screenWidth > theme.size.med && <Background imgSrc={bgImgSrc} />}
+            <Content imgSrc={bgImgSrc} screenWidth={screenWidth}>
+              <SettingsPanelWrapper>
+                <AuthButton />
+                <WeatherUpdateButton />
+                <WeatherSettings />
+              </SettingsPanelWrapper>
+              <LineWrapper screenWidth={screenWidth}>
+                <ClockWidget />
+                <CityWidget />
+              </LineWrapper>
+              <CalendarWidget />
+              <WeatherWidget />
+              <PulseLoader
+                cssOverride={override}
+                color="white"
+                speedMultiplier={0.7}
+                loading={loading}
+              />
+            </Content>
+            <ToastContainer />
+          </>
+        )}
+      </ThemeConsumer>
     </Wrapper>
   );
 }

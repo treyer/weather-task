@@ -15,31 +15,32 @@ export const Wrapper = styled.div`
   height: 50%;
   margin: 0 auto;
 
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const CalendarTableContainer = styled(TableContainer)`
   position: relative;
 
-  padding: 5px;
+  padding: ${({ theme }) => theme.spaces[1]}px;
 
-  background-color: rgb(0, 0, 0, 0.3);
+  background-color: ${({ theme }) => theme.colors.lightTranslucentBlack};
+  overflow-x: visible !important;
 `;
 
 export const CalendarTableCell = styled(TableCell)`
-  color: white !important;
+  color: ${({ theme }) => theme.colors.white} !important;
 `;
 
 export const CalendarIconButton = styled(IconButton)`
   position: absolute !important;
-  top: -27px;
-  right: 10px;
+  top: -${({ theme }) => theme.spaces[4] + 5}px;
+  right: ${({ theme }) => theme.spaces[2] + 2}px;
 `;
 
 export const CalendarLinkIcon = styled(LinkIcon)`
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const CalendarUpdateIcon = styled(CachedIcon)`
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
 `;

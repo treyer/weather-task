@@ -1,12 +1,13 @@
 import { SetStateAction, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { usePlacesWidget } from "react-google-autocomplete";
+import { useWindowWidth } from "@react-hook/window-size";
 
 import { RootState } from "store";
 import { selectLocation } from "store/selectors/selectors";
 import { handleDataFromAutocomplete } from "store/actions";
 import TextField from "@mui/material/TextField";
-import { Wrapper } from "./components";
+import Wrapper from "./components";
 
 export type AutocompleteData = {
   location: string;
@@ -18,6 +19,7 @@ function CityWidget() {
   const dispatch = useDispatch();
   const location = useSelector((state: RootState) => selectLocation(state));
   const [inputValue, setInputValue] = useState("");
+  const screenWidth = useWindowWidth();
 
   useEffect(() => {
     setInputValue(location);
@@ -47,7 +49,7 @@ function CityWidget() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper screenWidth={screenWidth}>
       <TextField
         sx={{ input: { color: "white" }, label: { color: "white" } }}
         id="filled-basic"

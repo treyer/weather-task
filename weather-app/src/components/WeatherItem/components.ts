@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { COLOR_WHITE } from "constants/colors";
-
 type Props = {
   imgSrc: string;
 };
@@ -13,8 +11,8 @@ export const ItemWrapper = styled.div<Props>`
 
   box-sizing: border-box;
   height: 168px;
-  margin 2px;
-  padding: 5px;
+  margin ${({ theme }) => theme.spaces[1] - 2}px;
+  padding: ${({ theme }) => theme.spaces[1] + 1}px;
 
   background: url(/assets/svg/${({ imgSrc }) =>
     imgSrc}) center center no-repeat;
@@ -28,13 +26,13 @@ export const ItemHeaderWrapper = styled.div`
 `;
 
 export const Date = styled.div`
-  color: ${COLOR_WHITE};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Temperature = styled.div`
-  color: ${COLOR_WHITE};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const WeatherDescription = styled.div`
-  color: ${COLOR_WHITE};
+  color: ${({ theme }) => theme.colors.white};
 `;

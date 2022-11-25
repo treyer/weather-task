@@ -24,6 +24,24 @@ function WeatherWidget() {
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 450,
+        settings: { slidesToShow: 1, slidesToScroll: 1, infinite: false },
+      },
+      {
+        breakpoint: 600,
+        settings: { slidesToShow: 2, slidesToScroll: 1, infinite: false },
+      },
+      {
+        breakpoint: 800,
+        settings: { slidesToShow: 3, slidesToScroll: 2, infinite: false },
+      },
+      {
+        breakpoint: 1100,
+        settings: { slidesToShow: 4, slidesToScroll: 2, infinite: false },
+      },
+    ],
   };
 
   return (

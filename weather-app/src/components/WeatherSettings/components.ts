@@ -1,9 +1,7 @@
+import styled from "styled-components";
 import { FormControl } from "@mui/material";
 
 import Card from "@mui/material/Card";
-import { COLOR_BLACK, COLOR_GREY, COLOR_WHITE } from "constants/colors";
-
-import styled from "styled-components";
 
 export const WeatherSettingsWrapper = styled.div`
   position: relative;
@@ -12,12 +10,13 @@ export const WeatherSettingsWrapper = styled.div`
 export const SettingsIcon = styled.button`
   z-index: 10;
 
-  width: 25px;
-  height: 25px;
+  width: ${({ theme }) => theme.sizes[2]}px;
+  height: ${({ theme }) => theme.sizes[2]}px;
   padding: 0;
 
   background: url(/assets/svg/settings.svg) center center no-repeat;
-  background-size: 25px 25px;
+  background-size: ${({ theme }) => theme.sizes[2]}px
+    ${({ theme }) => theme.sizes[2]}px;
   border: none;
 
   transition: all 0.5s;
@@ -37,14 +36,14 @@ export const CoverLayer = styled.div`
   right: 0;
   z-index: 5;
 
-  background-color: ${COLOR_BLACK};
+  background-color: ${({ theme }) => theme.colors.black};
   opacity: 0.6;
 `;
 
 export const ModalWrapper = styled(Card)`
   position: absolute;
-  top: 38px;
-  right: -8px;
+  top: ${({ theme }) => theme.spaces[4] + 6}px;
+  right: -${({ theme }) => theme.spaces[2]}px;
   z-index: 10;
 
   width: 250px;
@@ -58,25 +57,26 @@ export const ModalWrapper = styled(Card)`
     position: absolute;
     z-index: 10;
 
-    top: -14px;
-    right: 14px;
+    top: -${({ theme }) => theme.spaces[3] - 2}px;
+    right: ${({ theme }) => theme.spaces[3] - 2}px;
 
-    border: 7px solid transparent;
-    border-bottom: 7px solid ${COLOR_WHITE};
+    border: ${({ theme }) => theme.spaces[2] - 1}px solid transparent;
+    border-bottom: ${({ theme }) => theme.spaces[2] - 1}px solid
+      ${({ theme }) => theme.colors.white};
   }
 `;
 
 export const Inner = styled.div`
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: ${({ theme }) => theme.spaces[2] + 2}px;
   box-sizing: border-box;
 `;
 
 export const CloseButton = styled.button`
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: ${({ theme }) => theme.spaces[1] + 1}px;
+  right: ${({ theme }) => theme.spaces[1] + 1}px;
 
   padding: 0;
 
@@ -84,12 +84,12 @@ export const CloseButton = styled.button`
   height: 30px;
   border: none;
 
-  font-size: 30px;
+  font-size: ${({ theme }) => theme.fontSizes[5] - 2}px;
 
   cursor: pointer;
 
   &:hover {
-    color: ${COLOR_GREY};
+    color: ${({ theme }) => theme.colors.grey};
   }
 `;
 

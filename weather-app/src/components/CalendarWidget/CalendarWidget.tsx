@@ -4,6 +4,7 @@ import TableBody from "@mui/material/TableBody";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
+import { useWindowWidth } from "@react-hook/window-size";
 
 import { RootState } from "store";
 import { selectCalendarEvents } from "store/selectors/selectors";
@@ -21,6 +22,7 @@ function CalendarWidget() {
   const calendarEvents = useSelector((store: RootState) =>
     selectCalendarEvents(store),
   );
+  const screenWidth = useWindowWidth();
 
   return (
     <Wrapper>
@@ -31,7 +33,9 @@ function CalendarWidget() {
             <TableHead>
               <TableRow>
                 <CalendarTableCell align="center">Start</CalendarTableCell>
-                <CalendarTableCell align="center">End</CalendarTableCell>
+                {screenWidth > 650 && (
+                  <CalendarTableCell align="center">End</CalendarTableCell>
+                )}
                 <CalendarTableCell align="center">Event</CalendarTableCell>
                 <CalendarTableCell align="center">Link</CalendarTableCell>
               </TableRow>
@@ -42,9 +46,11 @@ function CalendarWidget() {
                   <CalendarTableCell align="center">
                     {formatCalendarDate(el.start.dateTime)}
                   </CalendarTableCell>
-                  <CalendarTableCell align="center">
-                    {formatCalendarDate(el.end.dateTime)}
-                  </CalendarTableCell>
+                  {screenWidth > 650 && (
+                    <CalendarTableCell align="center">
+                      {formatCalendarDate(el.end.dateTime)}
+                    </CalendarTableCell>
+                  )}
                   <CalendarTableCell align="center">
                     {el.summary}
                   </CalendarTableCell>

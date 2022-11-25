@@ -1,20 +1,22 @@
-import { COLOR_WHITE } from "constants/colors";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+type Prop = {
+  screenWidth: number;
+};
+
+const Wrapper = styled.div<Prop>`
   display: flex;
   flex-direction: column;
   justify-content: end;
 
-  padding-right: 50px;
+  padding-right: ${({ screenWidth, theme }) =>
+    screenWidth > theme.size.small ? theme.sizes[5] - 5 : theme.sizes[2]}px;
+  padding-left: ${({ screenWidth, theme }) =>
+    screenWidth > 535 ? 0 : theme.sizes[2]}px;
+  padding-top: ${({ screenWidth, theme }) =>
+    screenWidth > 535 ? 0 : theme.sizes[0]}px;
 
-  color: ${COLOR_WHITE};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
-export const CountryName = styled.div`
-  font-size: 25px;
-`;
-
-export const City = styled.div`
-  font-size: 35px;
-`;
+export default Wrapper;

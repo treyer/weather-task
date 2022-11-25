@@ -4,7 +4,6 @@ import { ShowWeatherType, WeatherSource } from "constants/common";
 import { CalendarEvent } from "store/types";
 import {
   CLEAR_CALENDAR_EVENTS,
-  DECREASE_LOADING_COUNT,
   FETCH_CALENDAR_EVENTS,
   FETCH_GEO,
   FETCH_OPENWEATHERMAP,
@@ -26,7 +25,6 @@ import {
 
 export const showLoader = () => ({ type: SHOW_LOADER });
 export const hideLoader = () => ({ type: HIDE_LOADER });
-export const decreaseLoadingCount = () => ({ type: DECREASE_LOADING_COUNT });
 export const setIsSignedIn = (payload: boolean) => ({
   type: SET_IS_SIGNED_IN,
   payload,

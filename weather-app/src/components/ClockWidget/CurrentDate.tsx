@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
 
 import { formatToCurrentDate } from "helpers/formatter";
 import { DateWrapper } from "./components";
@@ -11,6 +12,7 @@ function CurrentDate({ timeZone }: Props) {
   const [formattedDate, setFormattedDate] = useState(() =>
     formatToCurrentDate(new Date(), timeZone),
   );
+  const screenWidth = useWindowWidth();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,7 +24,7 @@ function CurrentDate({ timeZone }: Props) {
     return () => clearTimeout(timer);
   });
 
-  return <DateWrapper>{formattedDate}</DateWrapper>;
+  return <DateWrapper screenWidth={screenWidth}>{formattedDate}</DateWrapper>;
 }
 
 export default CurrentDate;
