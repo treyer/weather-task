@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // @ts-ignore
 import { ToastContainer } from "react-toaster-lib";
+import { PulseLoader } from "react-spinners";
 
 import { fetchImageSrc } from "api/API";
-import { selectBgSearchPhrase } from "store/selectors/selectors";
+import { selectBgSearchPhrase, selectLoading } from "store/selectors/selectors";
 import { RootState } from "store";
 import CityWidget from "components/CityWidget/CityWidget";
 import ClockWidget from "components/ClockWidget/ClockWidget";
@@ -25,7 +26,13 @@ function MainLayout() {
   const bgSearchPhrase = useSelector((state: RootState) =>
     selectBgSearchPhrase(state),
   );
+  const loading = useSelector((state: RootState) => selectLoading(state));
   const [bgImgSrc, setBgImgSrc] = useState("");
+  const override: CSSProperties = {
+    position: "fixed",
+    top: "calc(50% - 12px)",
+    right: "calc(50% - 28px)",
+  };
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -53,6 +60,12 @@ function MainLayout() {
           <WeatherUpdateButton />
           <WeatherSettings />
         </SettingsPanelWrapper>
+        <PulseLoader
+          cssOverride={override}
+          color="white"
+          speedMultiplier={0.7}
+          loading={loading}
+        />
       </Content>
       <ToastContainer />
     </Wrapper>

@@ -24,6 +24,7 @@ import {
   fetchOpenweathermap,
   fetchWeatherbitDaily,
   fetchWeatherbitHourly,
+  hideLoader,
   setBgSearchPhrase,
   setCalendarEvents,
   setGeo,
@@ -31,6 +32,7 @@ import {
   setOpenweathermapHourly,
   setWeatherbitDaily,
   setWeatherbitHourly,
+  showLoader,
 } from "store/actions";
 import apiCalendar from "api/ApiCalendar/ApiCalendar";
 import { CalendarEvent } from "store/types";
@@ -51,6 +53,7 @@ export default function* rootSagaWatcher() {
 
 function* fetchGeoWorker() {
   try {
+    yield put(showLoader());
     const geo: GetGeoResponse = yield call(fetchGeo);
     yield put(setGeo(geo));
     yield put(fetchOpenweathermap());
@@ -58,6 +61,8 @@ function* fetchGeoWorker() {
     yield put(fetchWeatherbitHourly());
   } catch (error: any) {
     showError("Error occurs while fetching geo data");
+  } finally {
+    yield put(hideLoader());
   }
 }
 
@@ -68,6 +73,7 @@ function* handleDataFromAutocompleteWorker(action: {
   const { location } = yield select((state) => state.geo);
   if (action.payload.location !== location) {
     try {
+      yield put(showLoader());
       const timeZone: string = yield fetchTimezoneByCoordinates(
         action.payload.latitude,
         action.payload.longitude,
@@ -85,12 +91,15 @@ function* handleDataFromAutocompleteWorker(action: {
       yield put(fetchWeatherbitHourly());
     } catch (error: any) {
       showError("Error occurs while handling data from google autocomplete");
+    } finally {
+      yield put(hideLoader());
     }
   }
 }
 
 function* fetchOpenweathermapWorker() {
   try {
+    yield put(showLoader());
     const { latitude, longitude } = yield select((state) => state.geo);
     if (latitude === null || longitude === null) {
       throw new Error();
@@ -124,11 +133,14 @@ function* fetchOpenweathermapWorker() {
     showError(
       "Error occurs while fetching weather forecast from Openweathermap",
     );
+  } finally {
+    yield put(hideLoader());
   }
 }
 
 function* fetchWeatherbitDailyWorker() {
   try {
+    yield put(showLoader());
     const { latitude, longitude } = yield select((state) => state.geo);
     if (latitude === null || longitude === null) {
       throw new Error();
@@ -143,11 +155,14 @@ function* fetchWeatherbitDailyWorker() {
     yield put(setWeatherbitDaily(WBDaily));
   } catch (error: any) {
     showError("Error occurs while fetching daily forecast from Weatherbit");
+  } finally {
+    yield put(hideLoader());
   }
 }
 
 function* fetchWeatherbitHourlyWorker() {
   try {
+    yield put(showLoader());
     const { latitude, longitude } = yield select((state) => state.geo);
     if (latitude === null || longitude === null) {
       throw new Error();
@@ -162,6 +177,8 @@ function* fetchWeatherbitHourlyWorker() {
     yield put(setWeatherbitHourly(WBHourly));
   } catch (error: any) {
     showError("Error occurs while fetching hourly forecast from Weatherbit");
+  } finally {
+    yield put(hideLoader());
   }
 }
 
@@ -182,10 +199,13 @@ const getCalendarEvents = async (): Promise<Array<CalendarEvent>> => {
 
 function* fetchCalendarEventsWorker() {
   try {
+    yield put(showLoader());
     const payload: Array<CalendarEvent> = yield call(getCalendarEvents);
     yield put(setCalendarEvents(payload));
   } catch (error: any) {
     showError("Error occurs while fetching google calendar events");
+  } finally {
+    yield put(hideLoader());
   }
 }
 

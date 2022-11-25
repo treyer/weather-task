@@ -4,6 +4,7 @@ import { RootState } from "store";
 import { ShowWeatherType, WeatherSource } from "constants/common";
 import { FetchForecastReturn } from "api/types";
 
+export const selectLoading = (state: RootState) => state.app.loading;
 export const selectIsSignedIn = (state: RootState) => state.app.isSignedIn;
 export const selectBgSearchPhrase = (state: RootState) =>
   state.app.bgSearchPhrase;
