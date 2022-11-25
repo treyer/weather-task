@@ -21,6 +21,7 @@ import {
 import { GetGeoResponse, FetchForecastReturn } from "api/types";
 import transformHoursToDaysWeather from "helpers/transformHoursToDays";
 import {
+  decreaseLoadingCount,
   fetchOpenweathermap,
   fetchWeatherbitDaily,
   fetchWeatherbitHourly,
@@ -62,7 +63,12 @@ function* fetchGeoWorker() {
   } catch (error: any) {
     showError("Error occurs while fetching geo data");
   } finally {
-    yield put(hideLoader());
+    const count: number = yield select((state) => state.app.loadingCount);
+    if (count > 1) {
+      yield put(decreaseLoadingCount());
+    } else {
+      yield put(hideLoader());
+    }
   }
 }
 
@@ -92,7 +98,12 @@ function* handleDataFromAutocompleteWorker(action: {
     } catch (error: any) {
       showError("Error occurs while handling data from google autocomplete");
     } finally {
-      yield put(hideLoader());
+      const count: number = yield select((state) => state.app.loadingCount);
+      if (count > 1) {
+        yield put(decreaseLoadingCount());
+      } else {
+        yield put(hideLoader());
+      }
     }
   }
 }
@@ -134,7 +145,12 @@ function* fetchOpenweathermapWorker() {
       "Error occurs while fetching weather forecast from Openweathermap",
     );
   } finally {
-    yield put(hideLoader());
+    const count: number = yield select((state) => state.app.loadingCount);
+    if (count > 1) {
+      yield put(decreaseLoadingCount());
+    } else {
+      yield put(hideLoader());
+    }
   }
 }
 
@@ -156,7 +172,12 @@ function* fetchWeatherbitDailyWorker() {
   } catch (error: any) {
     showError("Error occurs while fetching daily forecast from Weatherbit");
   } finally {
-    yield put(hideLoader());
+    const count: number = yield select((state) => state.app.loadingCount);
+    if (count > 1) {
+      yield put(decreaseLoadingCount());
+    } else {
+      yield put(hideLoader());
+    }
   }
 }
 
@@ -178,7 +199,12 @@ function* fetchWeatherbitHourlyWorker() {
   } catch (error: any) {
     showError("Error occurs while fetching hourly forecast from Weatherbit");
   } finally {
-    yield put(hideLoader());
+    const count: number = yield select((state) => state.app.loadingCount);
+    if (count > 1) {
+      yield put(decreaseLoadingCount());
+    } else {
+      yield put(hideLoader());
+    }
   }
 }
 
@@ -205,7 +231,12 @@ function* fetchCalendarEventsWorker() {
   } catch (error: any) {
     showError("Error occurs while fetching google calendar events");
   } finally {
-    yield put(hideLoader());
+    const count: number = yield select((state) => state.app.loadingCount);
+    if (count > 1) {
+      yield put(decreaseLoadingCount());
+    } else {
+      yield put(hideLoader());
+    }
   }
 }
 

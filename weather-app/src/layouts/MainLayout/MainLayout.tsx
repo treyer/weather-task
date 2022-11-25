@@ -1,7 +1,7 @@
 import { CSSProperties, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // @ts-ignore
-import { ToastContainer } from "react-toaster-lib";
+import { ToastContainer, toaster } from "react-toaster-lib";
 import { PulseLoader } from "react-spinners";
 
 import { fetchImageSrc } from "api/API";
@@ -37,7 +37,16 @@ function MainLayout() {
   useEffect(() => {
     const fetchImage = async () => {
       const img = new Image();
-      img.src = await fetchImageSrc(bgSearchPhrase);
+      const src = await fetchImageSrc(bgSearchPhrase)
+        .then((image) => image)
+        .catch(() => {
+          toaster.addToast(
+            "Error while fetching background image from Unsplash",
+            "Attention!",
+            { type: "danger", lifeTime: 3000 },
+          );
+        });
+      img.src = src || "";
       img.onload = () => {
         setBgImgSrc(`url(${img.src})`);
       };

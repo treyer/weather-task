@@ -3,6 +3,7 @@ import { ShowWeatherType, WeatherSource } from "constants/common";
 
 export type AppState = {
   loading: boolean;
+  loadingCount: number;
   isSignedIn: boolean;
   bgSearchPhrase: string;
 };
