@@ -4,18 +4,30 @@ import { ThemeProvider } from "styled-components";
 
 import MainLayout from "layouts/MainLayout/MainLayout";
 import { RootState } from "store";
-import { fetchGeo } from "store/actions";
+import {
+  fetchGeo,
+  fetchOpenweathermap,
+  fetchWeatherbitDaily,
+  fetchWeatherbitHourly,
+} from "store/actions";
 import theme from "theme";
 
 function App() {
-  const { location } = useSelector((state: RootState) => state.geo);
+  const { location, timeZone, latitude, longitude } = useSelector(
+    (state: RootState) => state.geo,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (location === "") {
+    if (location === "" || timeZone === "UTC" || !latitude || !longitude) {
       dispatch(fetchGeo());
+    } else {
+      dispatch(fetchOpenweathermap());
+      dispatch(fetchWeatherbitDaily());
+      dispatch(fetchWeatherbitHourly());
     }
-  }, [dispatch, location]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

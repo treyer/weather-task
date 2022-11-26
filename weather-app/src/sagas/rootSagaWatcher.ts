@@ -56,6 +56,7 @@ function* fetchGeoWorker() {
     yield put(showLoader());
     const geo: GetGeoResponse = yield call(fetchGeo);
     yield put(setGeo(geo));
+    yield localStorage.setItem("geo", JSON.stringify(geo));
     yield put(fetchOpenweathermap());
     yield put(fetchWeatherbitDaily());
     yield put(fetchWeatherbitHourly());
@@ -80,6 +81,15 @@ function* handleDataFromAutocompleteWorker(action: {
       );
       yield put(
         setGeo({
+          location: action.payload.location,
+          timeZone,
+          latitude: action.payload.latitude,
+          longitude: action.payload.longitude,
+        }),
+      );
+      yield localStorage.setItem(
+        "geo",
+        JSON.stringify({
           location: action.payload.location,
           timeZone,
           latitude: action.payload.latitude,

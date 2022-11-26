@@ -1,11 +1,17 @@
 import { SET_GEO } from "../actions/constants";
 import { GeoAction, GeoState } from "../types";
 
+const geo = localStorage.getItem("geo");
+let geoParsed: GeoState | null = null;
+if (geo) {
+  geoParsed = JSON.parse(geo);
+}
+
 const initialValue: GeoState = {
-  location: "",
-  timeZone: "UTC",
-  latitude: null,
-  longitude: null,
+  location: geoParsed?.location || "",
+  timeZone: geoParsed?.timeZone || "UTC",
+  latitude: geoParsed?.latitude || null,
+  longitude: geoParsed?.longitude || null,
 };
 
 const geoReducer = (

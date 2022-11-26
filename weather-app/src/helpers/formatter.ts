@@ -30,9 +30,9 @@ export const formatToCurrentDate = (date: Date, timeZone: string) => {
 };
 
 export const temperaturePropsToString = (
-  temperature: number | undefined,
-  minTemperature: number | undefined,
-  maxTemperature: number | undefined,
+  temperature?: number,
+  minTemperature?: number,
+  maxTemperature?: number,
 ) => {
   if (temperature) return `${Math.round(temperature)}°C`;
   if (minTemperature && maxTemperature) {
