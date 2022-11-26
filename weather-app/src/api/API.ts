@@ -1,22 +1,11 @@
-import axios from "axios";
 import { ShowWeatherType } from "constants/common";
-// import { setupCache } from "axios-cache-adapter";
+import axios from "./axios-cache";
 import {
   GetGeoResponse,
   OpenweathermapResponse,
   FetchForecastReturn,
   WeatherbitResponse,
 } from "./types";
-
-// const MAX_AGE = 15 * 60 * 1000;
-
-// const cache = setupCache({
-//   maxAge: MAX_AGE,
-// });
-
-// const api = axios.create({
-//   adapter: cache.adapter,
-// });
 
 export const fetchImageSrc = async (keywords: string): Promise<string> => {
   const photoUrl = await axios
