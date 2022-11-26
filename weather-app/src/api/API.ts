@@ -107,7 +107,7 @@ export const fetchWeatherbitForecast = async (
       minTemperature: el.min_temp,
       maxTemperature: el.max_temp,
       weatherCode: el.weather.code,
-      dateInText: el.timestamp_local,
+      dateInText: el.datetime,
     };
   });
   return result;

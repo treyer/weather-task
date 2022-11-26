@@ -4,16 +4,6 @@ import { EN_US_LOCALE } from "constants/common";
 
 export type DateFormatted = [string | null, string | null];
 
-const getTodayDate = (): string => {
-  return dateFormat(new Date(), "yyyy-mm-dd");
-};
-
-const getTomorrowDate = (): string => {
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
-  return dateFormat(date, "yyyy-mm-dd");
-};
-
 const isToday = (date: Date): boolean => {
   return (
     dateFormat(new Date(), "yyyy-mm-dd") === dateFormat(date, "yyyy-mm-dd")
@@ -58,26 +48,19 @@ export const dateToWeatherItemFormat = (
   dateInString: string,
 ): DateFormatted => {
   if (/^\d{4}-\d{2}-\d{2}$/.test(dateInString)) {
-    if (dateInString === getTodayDate()) return ["Today", null];
-    if (dateInString === getTomorrowDate()) return ["Tomorrow", null];
+    if (isToday(new Date(dateInString))) return ["Today", null];
+    if (isTomorrow(new Date(dateInString))) return ["Tomorrow", null];
     return [dateInString.split("-").reverse().join("."), null];
   }
-  if (/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}$/.test(dateInString)) {
-    let date: string | null | undefined =
-      dateInString.match(/\d{4}-\d{2}-\d{2}/)?.[0];
-    if (date) {
-      if (date === getTodayDate()) date = "Today";
-      if (date === getTomorrowDate()) date = "Tomorrow";
-    }
-    let time: string | null | undefined =
-      dateInString.match(/\d{2}:\d{2}:\d{2}/)?.[0];
-    if (time) {
-      time = time
-        .split(":")
-        .filter((_, index, arr) => index !== arr.length - 1)
-        .join(":");
-    }
-    return [!date ? null : date, !time ? null : time];
+  if (
+    /^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}$/.test(dateInString) ||
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(dateInString)
+  ) {
+    let date = dateFormat(new Date(dateInString), "dd.mm.yyyy");
+    if (isToday(new Date(dateInString))) date = "Today";
+    if (isTomorrow(new Date(dateInString))) date = "Tomorrow";
+    const time = dateFormat(new Date(dateInString), "HH:MM");
+    return [date, time];
   }
   return [dateInString, null];
 };

@@ -34,6 +34,7 @@ interface WeatherbitItem {
   max_temp?: number;
   min_temp?: number;
   timestamp_local: string;
+  datetime: string;
   weather: { code: number };
 }
 

@@ -18,6 +18,7 @@ import {
   SET_OPENWEATHERMAP_DAILY,
   SET_OPENWEATHERMAP_HOURLY,
   SET_WEATHERBIT_DAILY,
+  SET_WEATHERBIT_HOURLY,
   SET_WEATHER_SHOW_TYPE,
   SET_WEATHER_SOURCE,
   SHOW_LOADER,
@@ -67,7 +68,7 @@ export const fetchWeatherbitHourly = () => ({
   type: FETCH_WEATHERBIT_HOURLY,
 });
 export const setWeatherbitHourly = (payload: FetchForecastReturn) => ({
-  type: FETCH_WEATHERBIT_HOURLY,
+  type: SET_WEATHERBIT_HOURLY,
   payload,
 });
 export const fetchCalendarEvents = () => ({ type: FETCH_CALENDAR_EVENTS });
