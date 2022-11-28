@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
+
 import {
   fetchOpenweathermap,
   fetchWeatherbitDaily,
   fetchWeatherbitHourly,
 } from "store/actions";
-
 import UpdateButton from "./components";
 
 function WeatherUpdateButton() {

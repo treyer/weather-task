@@ -1,5 +1,4 @@
 import {
-  // DECREASE_LOADING_COUNT,
   HIDE_LOADER,
   SET_BG_SEARCH_PHRASE,
   SET_IS_SIGNED_IN,
@@ -27,8 +26,6 @@ const appReducer = (
         loading: state.loadingCount !== 1,
         loadingCount: state.loadingCount - 1,
       };
-    // case DECREASE_LOADING_COUNT:
-    //   return { ...state, loadingCount: state.loadingCount - 1 };
     case SET_IS_SIGNED_IN:
       return { ...state, isSignedIn: (payload as boolean) || false };
     case SET_BG_SEARCH_PHRASE:

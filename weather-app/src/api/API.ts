@@ -1,4 +1,11 @@
 import { ShowWeatherType } from "constants/common";
+import {
+  IP_GEOLOCATON_URL,
+  IP_WHO_URL,
+  OPENWEATHERMAP_URL,
+  UNSPLASH_URL,
+  WEATHERBIT_URL,
+} from "constants/urls";
 import axios from "./axios-cache";
 import {
   GetGeoResponse,
@@ -9,7 +16,7 @@ import {
 
 export const fetchImageSrc = async (keywords: string): Promise<string> => {
   const photoUrl = await axios
-    .get("https://api.unsplash.com/photos/random?", {
+    .get(UNSPLASH_URL, {
       params: {
         query: keywords,
         orientation: "landscape",
@@ -22,7 +29,7 @@ export const fetchImageSrc = async (keywords: string): Promise<string> => {
 };
 
 export const fetchGeo = async (): Promise<GetGeoResponse> => {
-  const geo = await axios.get("http://ipwho.is/").then((res) => res.data);
+  const geo = await axios.get(IP_WHO_URL).then((res) => res.data);
   return {
     location: `${geo.city}, ${geo.country}`,
     timeZone: geo.timezone.id,
@@ -36,7 +43,7 @@ export const fetchTimezoneByCoordinates = async (
   longitude: number,
 ): Promise<string> => {
   const timezoneInfo: { timezone: string } = await axios
-    .get("https://api.ipgeolocation.io/timezone?", {
+    .get(IP_GEOLOCATON_URL, {
       params: {
         apiKey: process.env.REACT_APP_IP_GEOLOCATION,
         lat: latitude,
@@ -53,7 +60,7 @@ export const fetchOpenweathermapForecast = async (
   longitude: number,
 ): Promise<FetchForecastReturn> => {
   const weatherList: OpenweathermapResponse = await axios
-    .get("https://api.openweathermap.org/data/2.5/forecast?", {
+    .get(OPENWEATHERMAP_URL, {
       params: {
         lat: latitude,
         lon: longitude,
@@ -76,7 +83,7 @@ export const fetchWeatherbitForecast = async (
   longitude: number,
 ): Promise<FetchForecastReturn> => {
   const weatherList: WeatherbitResponse = await axios
-    .get(`https://api.weatherbit.io/v2.0/forecast/${type.toLowerCase()}?`, {
+    .get(`${WEATHERBIT_URL}${type.toLowerCase()}?`, {
       params: {
         lat: latitude,
         lon: longitude,

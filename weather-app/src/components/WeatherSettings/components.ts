@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { FormControl } from "@mui/material";
-
 import Card from "@mui/material/Card";
 
 export const WeatherSettingsWrapper = styled.div`
@@ -80,8 +79,8 @@ export const CloseButton = styled.button`
 
   padding: 0;
 
-  width: 30px;
-  height: 30px;
+  width: ${({ theme }) => theme.sizes[3]}px;
+  height: ${({ theme }) => theme.sizes[3]}px;
   border: none;
 
   font-size: ${({ theme }) => theme.fontSizes[5] - 2}px;
